@@ -10,7 +10,11 @@ STORAGE_STATING_ADDRESS  EQU	0x2000000;
 				EXPORT	__main
 				ENTRY	
 __main			
+				;Set PLL to 20 MHZ and also set the PIOSC as the oscillator source
+				
 				;DISABLE INT
+				
+				;In the initiallisations use the PIOSC as the clock source?
 				
 				;Do the initialisations
 				
