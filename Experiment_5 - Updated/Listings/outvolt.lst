@@ -1,0 +1,156 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;LABEL  DIRECTIVE VALUE  COMMENT
+    2 00000000                 AREA             sdata, DATA, READONLY
+    3 00000000                 THUMB
+    4 00000000         
+    5 00000000 54 68 65 
+              20 56 6F 
+              6C 74 61 
+              67 65 20 
+              69 73 3A 
+              20       VoltageMsg
+                               DCB              "The Voltage is: "
+    6 00000010 04              DCB              0x04
+    7 00000011         
+    8 00000011 20 56   Voltage DCB              " V"
+    9 00000013 0D              DCB              0x0D
+   10 00000014 04              DCB              0x04
+   11 00000015         
+   12 00000015         ;*******************************************************
+                       ********
+   13 00000015         
+   14 00000015 20000000 
+                       BUFFER_ADDR
+                               EQU              0x20000000  ;
+   15 00000015         
+   16 00000015         ;label   directive   value   comment
+   17 00000015                 AREA             outVoltRoutine,CODE,READONLY
+   18 00000000                 THUMB
+   19 00000000                 EXTERN           OutStr
+   20 00000000                 EXTERN           CONVRT_HEX_TO_VOLT
+   21 00000000                 EXPORT           outVolt
+   22 00000000         
+   23 00000000 B520    outVolt PUSH{LR,R5}
+   24 00000002         
+   25 00000002 4D07            LDR              R5,=VoltageMsg ;
+   26 00000004 F7FF FFFE       BL               OutStr      ;
+   27 00000008         
+   28 00000008 F04F 5500       LDR              R5, =BUFFER_ADDR
+   29 0000000C F7FF FFFE       BL               CONVRT_HEX_TO_VOLT
+   30 00000010 F7FF FFFE       BL               OutStr
+   31 00000014         
+   32 00000014 4D03            LDR              R5,=Voltage ;
+   33 00000016 F7FF FFFE       BL               OutStr      ;
+   34 0000001A         
+   35 0000001A E8BD 4020       POP{LR,R5}
+   36 0000001E         
+   37 0000001E 4770            BX               LR
+   38 00000020                 ALIGN
+   39 00000020                 END
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\outvolt.d -o.\objects\outvolt.o -I.\RTE\_Target_1 -ID
+:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 -ID:\Keil_v5\ARM\
+CMSIS\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 5
+24" --predefine="TM4C1231H6PM SETA 1" --list=.\listings\outvolt.lst outVolt.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Voltage 00000011
+
+Symbol: Voltage
+   Definitions
+      At line 8 in file outVolt.s
+   Uses
+      At line 32 in file outVolt.s
+Comment: Voltage used once
+VoltageMsg 00000000
+
+Symbol: VoltageMsg
+   Definitions
+      At line 5 in file outVolt.s
+   Uses
+      At line 25 in file outVolt.s
+Comment: VoltageMsg used once
+sdata 00000000
+
+Symbol: sdata
+   Definitions
+      At line 2 in file outVolt.s
+   Uses
+      None
+Comment: sdata unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+outVolt 00000000
+
+Symbol: outVolt
+   Definitions
+      At line 23 in file outVolt.s
+   Uses
+      At line 21 in file outVolt.s
+Comment: outVolt used once
+outVoltRoutine 00000000
+
+Symbol: outVoltRoutine
+   Definitions
+      At line 17 in file outVolt.s
+   Uses
+      None
+Comment: outVoltRoutine unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+BUFFER_ADDR 20000000
+
+Symbol: BUFFER_ADDR
+   Definitions
+      At line 14 in file outVolt.s
+   Uses
+      At line 28 in file outVolt.s
+Comment: BUFFER_ADDR used once
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+CONVRT_HEX_TO_VOLT 00000000
+
+Symbol: CONVRT_HEX_TO_VOLT
+   Definitions
+      At line 20 in file outVolt.s
+   Uses
+      At line 29 in file outVolt.s
+Comment: CONVRT_HEX_TO_VOLT used once
+OutStr 00000000
+
+Symbol: OutStr
+   Definitions
+      At line 19 in file outVolt.s
+   Uses
+      At line 26 in file outVolt.s
+      At line 30 in file outVolt.s
+      At line 33 in file outVolt.s
+
+2 symbols
+344 symbols in table

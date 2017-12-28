@@ -1,0 +1,155 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000 0000003E 
+                       DELTA_VOLT_HEX
+                               EQU              0x3E
+    2 00000000         
+    3 00000000                 AREA             main,CODE,READONLY
+    4 00000000                 THUMB
+    5 00000000         
+    6 00000000                 EXTERN           initialize
+    7 00000000                 EXTERN           getVoltage
+    8 00000000                 EXTERN           outVolt
+    9 00000000         
+   10 00000000                 EXPORT           __main
+   11 00000000                 ENTRY
+   12 00000000         __main
+   13 00000000 F7FF FFFE       BL               initialize
+   14 00000004 F04F 0600       MOV              R6,#0       ; OLD VAL
+   15 00000008 F04F 0700       MOV              R7,#0       ; NEV VAL
+   16 0000000C F04F 0800       MOV              R8,#0       ;
+   17 00000010 BF00            NOP
+   18 00000012         
+   19 00000012 F7FF FFFE 
+                       nextSample
+                               BL               getVoltage
+   20 00000016         
+   21 00000016 460F            MOV              R7,R1       ;
+   22 00000018 EBA7 0806       SUB              R8,R7,R6    ;
+   23 0000001C F1B8 0F3E       CMP              R8,#DELTA_VOLT_HEX ;
+   24 00000020 DA06            BGE              outVoltLinker
+   25 00000022         
+   26 00000022 EBA6 0807       SUB              R8,R6,R7    ;
+   27 00000026 F1B8 0F3E       CMP              R8,#DELTA_VOLT_HEX ;
+   28 0000002A DA01            BGE              outVoltLinker
+   29 0000002C         
+   30 0000002C 463E            MOV              R6,R7       ;R6 = R7
+   31 0000002E E7F0            B                nextSample
+   32 00000030         
+   33 00000030         
+   34 00000030 F7FF FFFE 
+                       outVoltLinker
+                               BL               outVolt
+   35 00000034 463E            MOV              R6,R7       ;R6 = R7 
+   36 00000036 E7EC            B                nextSample
+   37 00000038         
+   38 00000038 E7FE    Done    B                Done
+   39 0000003A         
+   40 0000003A 00 00           ALIGN
+   41 0000003C                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\main.d -o.\objects\main.o -I.\RTE\_Target_1 -IC:\Keil
+_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 -IC:\Keil_v5\ARM\CMSIS\
+Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 524" --
+predefine="TM4C1231H6PM SETA 1" --list=.\listings\main.lst codes\main.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Done 00000038
+
+Symbol: Done
+   Definitions
+      At line 38 in file codes\main.s
+   Uses
+      At line 38 in file codes\main.s
+Comment: Done used once
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 12 in file codes\main.s
+   Uses
+      At line 10 in file codes\main.s
+Comment: __main used once
+main 00000000
+
+Symbol: main
+   Definitions
+      At line 3 in file codes\main.s
+   Uses
+      None
+Comment: main unused
+nextSample 00000012
+
+Symbol: nextSample
+   Definitions
+      At line 19 in file codes\main.s
+   Uses
+      At line 31 in file codes\main.s
+      At line 36 in file codes\main.s
+
+outVoltLinker 00000030
+
+Symbol: outVoltLinker
+   Definitions
+      At line 34 in file codes\main.s
+   Uses
+      At line 24 in file codes\main.s
+      At line 28 in file codes\main.s
+
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+DELTA_VOLT_HEX 0000003E
+
+Symbol: DELTA_VOLT_HEX
+   Definitions
+      At line 1 in file codes\main.s
+   Uses
+      At line 23 in file codes\main.s
+      At line 27 in file codes\main.s
+
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+getVoltage 00000000
+
+Symbol: getVoltage
+   Definitions
+      At line 7 in file codes\main.s
+   Uses
+      At line 19 in file codes\main.s
+Comment: getVoltage used once
+initialize 00000000
+
+Symbol: initialize
+   Definitions
+      At line 6 in file codes\main.s
+   Uses
+      At line 13 in file codes\main.s
+Comment: initialize used once
+outVolt 00000000
+
+Symbol: outVolt
+   Definitions
+      At line 8 in file codes\main.s
+   Uses
+      At line 34 in file codes\main.s
+Comment: outVolt used once
+3 symbols
+343 symbols in table

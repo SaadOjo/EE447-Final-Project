@@ -1,0 +1,59 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;label   directive   value   comment
+    2 00000000                 AREA             delayRoutine,CODE,READONLY
+    3 00000000                 THUMB
+    4 00000000                 EXPORT           DELAY100
+    5 00000000         
+    6 00000000 B401    DELAY100
+                               PUSH{R0}
+    7 00000002 4802            LDR              R0,=0x74240 ;
+    8 00000004 3801    loop    SUBS             R0,#1       ;
+    9 00000006 D1FD            BNE              loop
+   10 00000008         
+   11 00000008 BC01            POP{R0}
+   12 0000000A 4770            BX               LR
+   13 0000000C                 ALIGN
+   14 0000000C                 END
+              00074240 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\delay.d -o.\objects\delay.o -I.\RTE\_Target_1 -IC:\Ke
+il_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 -IC:\Keil_v5\ARM\CMSI
+S\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 524" 
+--predefine="TM4C1231H6PM SETA 1" --list=.\listings\delay.lst codes\delay.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DELAY100 00000000
+
+Symbol: DELAY100
+   Definitions
+      At line 6 in file codes\delay.s
+   Uses
+      At line 4 in file codes\delay.s
+Comment: DELAY100 used once
+delayRoutine 00000000
+
+Symbol: delayRoutine
+   Definitions
+      At line 2 in file codes\delay.s
+   Uses
+      None
+Comment: delayRoutine unused
+loop 00000004
+
+Symbol: loop
+   Definitions
+      At line 8 in file codes\delay.s
+   Uses
+      At line 9 in file codes\delay.s
+Comment: loop used once
+3 symbols
+339 symbols in table

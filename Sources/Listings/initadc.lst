@@ -1,0 +1,189 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;label    directive   value   comment
+    2 00000000 400FE638 
+                       RCGCADC EQU              0x400FE638
+    3 00000000 40038000 
+                       ADC0_ACTSS
+                               EQU              0x40038000
+    4 00000000 400380A4 
+                       ADC0_SSCTL3
+                               EQU              0x400380A4
+    5 00000000 400380A0 
+                       ADC0_SSMUX3
+                               EQU              0x400380A0
+    6 00000000 40038014 
+                       ADC0_EMUX
+                               EQU              0x40038014
+    7 00000000 40038FC4 
+                       ADC0_PP EQU              0x40038FC4  ;0x1 (125KSPS)
+    8 00000000         
+    9 00000000         
+   10 00000000         ;label   directive   value   comment
+   11 00000000                 AREA             adcInitializeRoutine,CODE,READO
+NLY
+   12 00000000                 THUMB
+   13 00000000                 EXPORT           initAdc
+   14 00000000         
+   15 00000000         initAdc PROC
+   16 00000000         
+   17 00000000 B503            PUSH{LR,R1,R0}
+   18 00000002         
+   19 00000002 4915            LDR              R1 , =RCGCADC ;ORRING MIGHT NOT
+                                                             WORK AS INTENDED
+   20 00000004 6808            LDR              R0 , [R1]
+   21 00000006 F040 0001       ORR              R0 , R0 , #0x01 
+                                                            ;Initialize ADC 0
+   22 0000000A 6008            STR              R0 , [R1]
+   23 0000000C         
+   24 0000000C BF00            NOP
+   25 0000000E BF00            NOP
+   26 00000010 BF00            NOP                          ; let GPIO clock st
+                                                            abilize
+   27 00000012         
+   28 00000012 4912            LDR              R1 , =ADC0_ACTSS ; disable SS3
+   29 00000014 6808            LDR              R0 , [R1]
+   30 00000016 F020 0008       BIC              R0 , #0x08  ; disable SS3
+   31 0000001A 6008            STR              R0 , [R1]
+   32 0000001C         
+   33 0000001C 4910            LDR              R1 , =ADC0_EMUX ; set for softw
+                                                            are trigger
+   34 0000001E 6808            LDR              R0 , [R1]
+   35 00000020 F420 4070       BIC              R0 , #0xF000 ; select SS3
+   36 00000024 6008            STR              R0 , [R1]
+   37 00000026         
+   38 00000026 490F            LDR              R1 , =ADC0_SSMUX3 
+                                                            ; select input pins
+                                                            
+   39 00000028 6808            LDR              R0 , [R1]
+   40 0000002A F020 000F       BIC              R0 , #0x000F ; select PE3 AN0?
+   41 0000002E 6008            STR              R0 , [R1]
+   42 00000030         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   43 00000030 490D            LDR              R1 , =ADC0_SSCTL3 ; set control
+                                                             register
+   44 00000032 6808            LDR              R0 , [R1]
+   45 00000034 F040 0006       ORR              R0 , #0x6   ; IE & END set
+   46 00000038 6008            STR              R0 , [R1]
+   47 0000003A         
+   48 0000003A 490C            LDR              R1 , =ADC0_PP 
+                                                            ; set sampling rate
+                                                            
+   49 0000003C 6808            LDR              R0 , [R1]
+   50 0000003E F020 000F       BIC              R0 , #0x0F  ; BIC First?      
+   51 00000042 F040 0001       ORR              R0 , #0x01  ; select 125KSPS 
+   52 00000046 6008            STR              R0 , [R1]
+   53 00000048         
+   54 00000048 4904            LDR              R1 , =ADC0_ACTSS ; enable SS
+   55 0000004A 6808            LDR              R0 , [R1]
+   56 0000004C F040 0008       ORR              R0 , #0x08  ; SS3
+   57 00000050 6008            STR              R0 , [R1]
+   58 00000052         
+   59 00000052 E8BD 4003       POP{LR,R1,R0}
+   60 00000056 4770            BX               LR
+   61 00000058         
+   62 00000058                 ENDP
+   63 00000058         
+   64 00000058                 ALIGN
+   65 00000058                 END
+              400FE638 
+              40038000 
+              40038014 
+              400380A0 
+              400380A4 
+              40038FC4 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\initadc.d -o.\objects\initadc.o -I.\RTE\_Target_1 -IC
+:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 -IC:\Keil_v5\ARM\
+CMSIS\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 5
+24" --predefine="TM4C1231H6PM SETA 1" --list=.\listings\initadc.lst codes\initA
+dc.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+adcInitializeRoutine 00000000
+
+Symbol: adcInitializeRoutine
+   Definitions
+      At line 11 in file codes\initAdc.s
+   Uses
+      None
+Comment: adcInitializeRoutine unused
+initAdc 00000000
+
+Symbol: initAdc
+   Definitions
+      At line 15 in file codes\initAdc.s
+   Uses
+      At line 13 in file codes\initAdc.s
+Comment: initAdc used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+ADC0_ACTSS 40038000
+
+Symbol: ADC0_ACTSS
+   Definitions
+      At line 3 in file codes\initAdc.s
+   Uses
+      At line 28 in file codes\initAdc.s
+      At line 54 in file codes\initAdc.s
+
+ADC0_EMUX 40038014
+
+Symbol: ADC0_EMUX
+   Definitions
+      At line 6 in file codes\initAdc.s
+   Uses
+      At line 33 in file codes\initAdc.s
+Comment: ADC0_EMUX used once
+ADC0_PP 40038FC4
+
+Symbol: ADC0_PP
+   Definitions
+      At line 7 in file codes\initAdc.s
+   Uses
+      At line 48 in file codes\initAdc.s
+Comment: ADC0_PP used once
+ADC0_SSCTL3 400380A4
+
+Symbol: ADC0_SSCTL3
+   Definitions
+      At line 4 in file codes\initAdc.s
+   Uses
+      At line 43 in file codes\initAdc.s
+Comment: ADC0_SSCTL3 used once
+ADC0_SSMUX3 400380A0
+
+Symbol: ADC0_SSMUX3
+   Definitions
+      At line 5 in file codes\initAdc.s
+   Uses
+      At line 38 in file codes\initAdc.s
+Comment: ADC0_SSMUX3 used once
+RCGCADC 400FE638
+
+Symbol: RCGCADC
+   Definitions
+      At line 2 in file codes\initAdc.s
+   Uses
+      At line 19 in file codes\initAdc.s
+Comment: RCGCADC used once
+6 symbols
+344 symbols in table
