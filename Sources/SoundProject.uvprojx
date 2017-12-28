@@ -10,6 +10,7 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -400,11 +401,6 @@
               <FilePath>.\codes\InChar.s</FilePath>
             </File>
             <File>
-              <FileName>initAdc.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\codes\initAdc.s</FilePath>
-            </File>
-            <File>
               <FileName>main.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\codes\main.s</FilePath>
@@ -433,6 +429,11 @@
               <FileName>Startup.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\codes\Startup.s</FilePath>
+            </File>
+            <File>
+              <FileName>pwmInit.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\codes\pwmInit.s</FilePath>
             </File>
           </Files>
         </Group>

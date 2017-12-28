@@ -27,7 +27,7 @@ PORTE_AMSEL 	EQU 0x40024528 ; Enable analog
 				THUMB	
 				EXPORT	initialize
 				
-initialize	PROC
+initialize		PROC
 	
 				PUSH{LR,R1,R0}
 
@@ -76,6 +76,7 @@ initialize	PROC
 				LDR R1, =ADC0_EMUX
 				LDR R0, [R1]
 				BIC R0, R0, #0xF000 ; clear bits 15:12 to select SOFTWARE trigger
+				ORR R0, #0x6000     ; PWM 0 Trigger Selected
 				STR R0, [R1]
 				
 				; Select input channel

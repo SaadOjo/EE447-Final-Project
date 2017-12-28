@@ -6,11 +6,11 @@ PWMENABLE 		EQU 0x40082008 ;
 PWM0INTEN 		EQU 0x40082044 ; 
 
 ;label			directive			value			comment
-				AREA  InitializeRoutine,CODE,READONLY
+				AREA  pwmInitializeRoutine,CODE,READONLY
 				THUMB	
-				EXPORT	initialize
+				EXPORT	pwmInit
 				
-initialize	PROC
+pwmInit			PROC
 	
 				PUSH{LR,R1,R0}
 
@@ -21,8 +21,8 @@ initialize	PROC
 				
 				LDR R1, =RCC 		; Set the PWM Clock divider to 2
 				LDR R0, [R1] 		;
-				BFC R0, 0x001E0000	;
-				ORR R0, 0x00100000	;
+				BIC R0,     #0x001E0000	;
+				ORR R0, R0, #0x00100000	;
 				STR R0, [R1] 		;
 				
 				LDR R1, =PWM0CTL 	; Set the PWM control

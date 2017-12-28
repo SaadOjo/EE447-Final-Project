@@ -12,12 +12,11 @@ ADC0_ISC 				EQU 		0x4003800C
 getVoltage		PROC
 	
 				PUSH {R0,LR}
-				
 										;Trigger by PWM instead
 				
-				LDR R0, =ADC0_PSSI;		; Trigger the ADC SS3
-				MOV R1, #0x8			;
-				STR R1,[R0]				;
+				;LDR R0, =ADC0_PSSI;		; Trigger the ADC SS3
+				;MOV R1, #0x8			;
+				;STR R1,[R0]				; 
 				
 											
 POLL_AGAIN		LDR R0, =ADC0_RIS		;BUSY WAIT
@@ -32,6 +31,10 @@ POLL_AGAIN		LDR R0, =ADC0_RIS		;BUSY WAIT
 
 				LDR R0, =ADC0_FIFO3;	; Read the FIF0
 				LDR R1, [R0]			;
+				
+				STR R1, [R5],#4			;Post increment
+				
+				SUB R4, #1				;Decrement Counter
 				
 				POP {R0,LR}
 				BX LR
