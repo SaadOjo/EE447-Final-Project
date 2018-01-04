@@ -46,7 +46,6 @@ pwmInit			PROC
 				STR R0, [R1]
 				
 				;Set ADC Trigger
-				
 				POP{LR,R1,R0}
 				BX LR
 				ENDP

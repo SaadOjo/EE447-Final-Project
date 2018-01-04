@@ -15,7 +15,7 @@ __main
 				
 				;Do the initialisations
 				
-				BL pwmInit;
+;				BL pwmInit;
 				BL initialize; Innitialise ADC and GPIOS
 				
 				MOV R4, #24000	;Contains the number of samples to be recorded
