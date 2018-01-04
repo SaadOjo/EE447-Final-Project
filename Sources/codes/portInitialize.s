@@ -76,7 +76,7 @@ initialize		PROC
 				LDR R1, =ADC0_EMUX
 				LDR R0, [R1]
 				BIC R0, R0, #0xF000 ; clear bits 15:12 to select SOFTWARE trigger
-				ORR R0, #0x6000     ; PWM 0 Trigger Selected
+;				ORR R0, #0x6000     ; PWM 0 Trigger Selected (TESTING CHANGED TO SOFTWARE)
 				STR R0, [R1]
 				
 				; Select input channel

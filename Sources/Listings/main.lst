@@ -4,9 +4,9 @@
 ARM Macro Assembler    Page 1 
 
 
-    1 00000000 02000000 
+    1 00000000 20000400 
                        STORAGE_STATING_ADDRESS
-                               EQU              0x2000000   ;
+                               EQU              0x20000400  ;
     2 00000000         
     3 00000000                 AREA             main,CODE,READONLY
     4 00000000                 THUMB
@@ -25,31 +25,32 @@ ARM Macro Assembler    Page 1
    15 00000000         
    16 00000000         ;Do the initialisations
    17 00000000         
-   18 00000000 F7FF FFFE       BL               pwmInit     ;
-   19 00000004 F7FF FFFE       BL               initialize  ; Innitialise ADC a
+   18 00000000         ;    BL pwmInit;
+   19 00000000 F7FF FFFE       BL               initialize  ; Innitialise ADC a
                                                             nd GPIOS
-   20 00000008         
-   21 00000008 F645 54C0       MOV              R4, #24000  ;Contains the numbe
+   20 00000004         
+   21 00000004 F645 54C0       MOV              R4, #24000  ;Contains the numbe
                                                             r of samples to be 
                                                             recorded
-   22 0000000C F04F 7500       LDR              R5, =STORAGE_STATING_ADDRESS ;
-   23 00000010         
-   24 00000010 F7FF FFFE 
+   22 00000008 4D02            LDR              R5, =STORAGE_STATING_ADDRESS ;
+   23 0000000A         
+   24 0000000A F7FF FFFE 
                        colNextSamp
                                BL               getVoltage  ; Loop Until Count 
                                                             is less that 24000 
                                                             (Also stores it)
-   25 00000014 2C00            CMP              R4, #0      ; R4 is substracted
+   25 0000000E 2C00            CMP              R4, #0      ; R4 is substracted
                                                              inside the subrout
                                                             ine
-   26 00000016 D1FB            BNE              colNextSamp ;
-   27 00000018         
-   28 00000018         ;Check if count is less that 24000 then stop the data re
+   26 00000010 D1FB            BNE              colNextSamp ;
+   27 00000012         
+   28 00000012         ;Check if count is less that 24000 then stop the data re
                        cording
-   29 00000018 E7FE    Done    B                Done
-   30 0000001A         
-   31 0000001A 00 00           ALIGN
-   32 0000001C                 END
+   29 00000012 E7FE    Done    B                Done
+   30 00000014         
+   31 00000014                 ALIGN
+   32 00000014                 END
+              20000400 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\main.d -o.\objects\main.o -I.\RTE\_Target_1 -IC:\Keil
 _v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123 -IC:\Keil_v5\ARM\CMSIS\
@@ -61,7 +62,7 @@ predefine="TM4C1231H6PM SETA 1" --list=.\listings\main.lst codes\main.s
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 Relocatable symbols
 
-Done 00000018
+Done 00000012
 
 Symbol: Done
    Definitions
@@ -77,7 +78,7 @@ Symbol: __main
    Uses
       At line 10 in file codes\main.s
 Comment: __main used once
-colNextSamp 00000010
+colNextSamp 0000000A
 
 Symbol: colNextSamp
    Definitions
@@ -100,7 +101,7 @@ Comment: main unused
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 Absolute symbols
 
-STORAGE_STATING_ADDRESS 02000000
+STORAGE_STATING_ADDRESS 20000400
 
 Symbol: STORAGE_STATING_ADDRESS
    Definitions
@@ -137,7 +138,7 @@ Symbol: pwmInit
    Definitions
       At line 8 in file codes\main.s
    Uses
-      At line 18 in file codes\main.s
-Comment: pwmInit used once
+      None
+Comment: pwmInit unused
 3 symbols
-342 symbols in table
+344 symbols in table

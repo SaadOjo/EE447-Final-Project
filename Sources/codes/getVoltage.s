@@ -14,9 +14,9 @@ getVoltage		PROC
 				PUSH {R0,LR}
 										;Trigger by PWM instead
 				
-				;LDR R0, =ADC0_PSSI;		; Trigger the ADC SS3
-				;MOV R1, #0x8			;
-				;STR R1,[R0]				; 
+				LDR R0, =ADC0_PSSI;		; Trigger the ADC SS3
+				MOV R1, #0x8			;
+				STR R1,[R0]				; 
 				
 											
 POLL_AGAIN		LDR R0, =ADC0_RIS		;BUSY WAIT

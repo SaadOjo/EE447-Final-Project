@@ -19,15 +19,19 @@ pwmInit			PROC
 				ORR R0, R0, #0x00100000 ; set bit 0 to enable ADC0 clock
 				STR R0, [R1]
 				
+				NOP 
+				NOP
+				NOP
+				
 				LDR R1, =RCC 		; Set the PWM Clock divider to 2
 				LDR R0, [R1] 		;
 				BIC R0,     #0x001E0000	;
 				ORR R0, R0, #0x00100000	;
 				STR R0, [R1] 		;
 				
-				LDR R1, =PWM0CTL 	; Set the PWM control
-				MOV R0, #0
-				STR R0, [R1]
+;				LDR R1, =PWM0CTL 	; Set the PWM control
+;				MOV R0, #0
+;				STR R0, [R1]
 				
 				LDR R1, =PWM0LOAD 	; Set the PWM control (10MHZ CLOCK)
 				MOV R0, #1250       ; Corresponds to 8Khz
